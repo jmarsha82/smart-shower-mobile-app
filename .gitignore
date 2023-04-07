@@ -1,0 +1,18 @@
+*.pem
+*.key
+*.crt
+
+.vscode/settings.json
+/smartShowerApp.xcodeproj
+/smartShowerApp.xcworkspace
+Pods/
+
+**/AWSIoTPythonSDK/*
+**/AWSIoTPythonSDK-1.4.9.dist-info/*
+
+
+
+# Has data file
+smartShowerApp/smartShowerApp/Constants.swift
+UserInterfaceState.xcuserstate
+machineLearning/__pycache__/test_binning_kbinsdis.cpython-38.pyc
