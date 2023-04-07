@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D95E3DCEDFF7DAD06DD20710 /* Pods_smartShowerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBCA837543646F48F95C4112 /* Pods_smartShowerApp.framework */; };
+		F80CF30025867162008D21F0 /* smart_Shower_App.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = F80CF2FF25867162008D21F0 /* smart_Shower_App.xcdatamodel */; };
+		F80CF303258671B8008D21F0 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CF302258671B7008D21F0 /* PersistenceHelper.swift */; };
+		F83368D3253CACD400FC7B29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83368D2253CACD400FC7B29 /* AppDelegate.swift */; };
+		F83368D5253CACD400FC7B29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83368D4253CACD400FC7B29 /* SceneDelegate.swift */; };
+		F83368D7253CACD400FC7B29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83368D6253CACD400FC7B29 /* ViewController.swift */; };
+		F83368DA253CACD400FC7B29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F83368D8253CACD400FC7B29 /* Main.storyboard */; };
+		F83368DC253CACD500FC7B29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F83368DB253CACD500FC7B29 /* Assets.xcassets */; };
+		F83368DF253CACD500FC7B29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F83368DD253CACD500FC7B29 /* LaunchScreen.storyboard */; };
+		F84D8A7A2586B75F00B9D7FF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F84D8A792586B75F00B9D7FF /* AudioToolbox.framework */; };
+		F84D8A7F2586BBC100B9D7FF /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F84D8A7E2586BBC100B9D7FF /* ExternalAccessory.framework */; };
+		F8A9C35A2586745A0024347A /* ShowerPersistence+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9C3582586745A0024347A /* ShowerPersistence+CoreDataClass.swift */; };
+		F8A9C35B2586745A0024347A /* ShowerPersistence+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9C3592586745A0024347A /* ShowerPersistence+CoreDataProperties.swift */; };
+		F8A9C36725868F990024347A /* LocalAndPushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9C36625868F990024347A /* LocalAndPushNotifications.swift */; };
+		F8D5533B25462DD9005EDB20 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D5533A25462DD9005EDB20 /* Constants.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5FEA8156662DAAAFA649D453 /* Pods-smartShowerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartShowerApp.debug.xcconfig"; path = "Target Support Files/Pods-smartShowerApp/Pods-smartShowerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E93084F410AE4F84590F3175 /* Pods-smartShowerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartShowerApp.release.xcconfig"; path = "Target Support Files/Pods-smartShowerApp/Pods-smartShowerApp.release.xcconfig"; sourceTree = "<group>"; };
+		EBCA837543646F48F95C4112 /* Pods_smartShowerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_smartShowerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80CF2FF25867162008D21F0 /* smart_Shower_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = smart_Shower_App.xcdatamodel; sourceTree = "<group>"; };
+		F80CF302258671B7008D21F0 /* PersistenceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
+		F83368CF253CACD400FC7B29 /* smartShowerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smartShowerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F83368D2253CACD400FC7B29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F83368D4253CACD400FC7B29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F83368D6253CACD400FC7B29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F83368D9253CACD400FC7B29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F83368DB253CACD500FC7B29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F83368DE253CACD500FC7B29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F83368E0253CACD500FC7B29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F84D8A782586B75F00B9D7FF /* smartShowerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = smartShowerApp.entitlements; sourceTree = "<group>"; };
+		F84D8A792586B75F00B9D7FF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F84D8A7E2586BBC100B9D7FF /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		F8A9C3582586745A0024347A /* ShowerPersistence+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowerPersistence+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F8A9C3592586745A0024347A /* ShowerPersistence+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowerPersistence+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8A9C36625868F990024347A /* LocalAndPushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAndPushNotifications.swift; sourceTree = "<group>"; };
+		F8D5533A25462DD9005EDB20 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F83368CC253CACD400FC7B29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F84D8A7F2586BBC100B9D7FF /* ExternalAccessory.framework in Frameworks */,
+				D95E3DCEDFF7DAD06DD20710 /* Pods_smartShowerApp.framework in Frameworks */,
+				F84D8A7A2586B75F00B9D7FF /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BB349D4698520D499B8E75E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F84D8A7E2586BBC100B9D7FF /* ExternalAccessory.framework */,
+				F84D8A792586B75F00B9D7FF /* AudioToolbox.framework */,
+				EBCA837543646F48F95C4112 /* Pods_smartShowerApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E6E9375BAE1CE58452360889 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5FEA8156662DAAAFA649D453 /* Pods-smartShowerApp.debug.xcconfig */,
+				E93084F410AE4F84590F3175 /* Pods-smartShowerApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F80CF2FE25867134008D21F0 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				F8A9C3582586745A0024347A /* ShowerPersistence+CoreDataClass.swift */,
+				F8A9C3592586745A0024347A /* ShowerPersistence+CoreDataProperties.swift */,
+				F80CF302258671B7008D21F0 /* PersistenceHelper.swift */,
+				F80CF2FF25867162008D21F0 /* smart_Shower_App.xcdatamodel */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		F83368C6253CACD400FC7B29 = {
+			isa = PBXGroup;
+			children = (
+				F83368D1253CACD400FC7B29 /* smartShowerApp */,
+				F83368D0253CACD400FC7B29 /* Products */,
+				E6E9375BAE1CE58452360889 /* Pods */,
+				BB349D4698520D499B8E75E0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F83368D0253CACD400FC7B29 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F83368CF253CACD400FC7B29 /* smartShowerApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F83368D1253CACD400FC7B29 /* smartShowerApp */ = {
+			isa = PBXGroup;
+			children = (
+				F84D8A782586B75F00B9D7FF /* smartShowerApp.entitlements */,
+				F8A9C36525868F670024347A /* Notification */,
+				F80CF2FE25867134008D21F0 /* Persistence */,
+				F83368D2253CACD400FC7B29 /* AppDelegate.swift */,
+				F83368D4253CACD400FC7B29 /* SceneDelegate.swift */,
+				F83368D6253CACD400FC7B29 /* ViewController.swift */,
+				F83368D8253CACD400FC7B29 /* Main.storyboard */,
+				F83368DB253CACD500FC7B29 /* Assets.xcassets */,
+				F83368DD253CACD500FC7B29 /* LaunchScreen.storyboard */,
+				F83368E0253CACD500FC7B29 /* Info.plist */,
+				F8D5533A25462DD9005EDB20 /* Constants.swift */,
+			);
+			path = smartShowerApp;
+			sourceTree = "<group>";
+		};
+		F8A9C36525868F670024347A /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				F8A9C36625868F990024347A /* LocalAndPushNotifications.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F83368CE253CACD400FC7B29 /* smartShowerApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F83368E3253CACD500FC7B29 /* Build configuration list for PBXNativeTarget "smartShowerApp" */;
+			buildPhases = (
+				3A67D1195693DB25BA4100ED /* [CP] Check Pods Manifest.lock */,
+				F83368CB253CACD400FC7B29 /* Sources */,
+				F83368CC253CACD400FC7B29 /* Frameworks */,
+				F83368CD253CACD400FC7B29 /* Resources */,
+				3AFE7E81ACF26041922CB3BC /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = smartShowerApp;
+			productName = smartShowerApp;
+			productReference = F83368CF253CACD400FC7B29 /* smartShowerApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F83368C7253CACD400FC7B29 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					F83368CE253CACD400FC7B29 = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = F83368CA253CACD400FC7B29 /* Build configuration list for PBXProject "smartShowerApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F83368C6253CACD400FC7B29;
+			productRefGroup = F83368D0253CACD400FC7B29 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F83368CE253CACD400FC7B29 /* smartShowerApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F83368CD253CACD400FC7B29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F83368DF253CACD500FC7B29 /* LaunchScreen.storyboard in Resources */,
+				F83368DC253CACD500FC7B29 /* Assets.xcassets in Resources */,
+				F83368DA253CACD400FC7B29 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3A67D1195693DB25BA4100ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-smartShowerApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3AFE7E81ACF26041922CB3BC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-smartShowerApp/Pods-smartShowerApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-smartShowerApp/Pods-smartShowerApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-smartShowerApp/Pods-smartShowerApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F83368CB253CACD400FC7B29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F83368D7253CACD400FC7B29 /* ViewController.swift in Sources */,
+				F80CF303258671B8008D21F0 /* PersistenceHelper.swift in Sources */,
+				F8A9C36725868F990024347A /* LocalAndPushNotifications.swift in Sources */,
+				F83368D3253CACD400FC7B29 /* AppDelegate.swift in Sources */,
+				F80CF30025867162008D21F0 /* smart_Shower_App.xcdatamodel in Sources */,
+				F8A9C35A2586745A0024347A /* ShowerPersistence+CoreDataClass.swift in Sources */,
+				F8A9C35B2586745A0024347A /* ShowerPersistence+CoreDataProperties.swift in Sources */,
+				F83368D5253CACD400FC7B29 /* SceneDelegate.swift in Sources */,
+				F8D5533B25462DD9005EDB20 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F83368D8253CACD400FC7B29 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F83368D9253CACD400FC7B29 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F83368DD253CACD500FC7B29 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F83368DE253CACD500FC7B29 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F83368E1253CACD500FC7B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F83368E2253CACD500FC7B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F83368E4253CACD500FC7B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FEA8156662DAAAFA649D453 /* Pods-smartShowerApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = smartShowerApp/smartShowerApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4XXH4KN74S;
+				INFOPLIST_FILE = smartShowerApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cse521s.smartShowerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F83368E5253CACD500FC7B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E93084F410AE4F84590F3175 /* Pods-smartShowerApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = smartShowerApp/smartShowerApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4XXH4KN74S;
+				INFOPLIST_FILE = smartShowerApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cse521s.smartShowerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F83368CA253CACD400FC7B29 /* Build configuration list for PBXProject "smartShowerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F83368E1253CACD500FC7B29 /* Debug */,
+				F83368E2253CACD500FC7B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F83368E3253CACD500FC7B29 /* Build configuration list for PBXNativeTarget "smartShowerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F83368E4253CACD500FC7B29 /* Debug */,
+				F83368E5253CACD500FC7B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F83368C7253CACD400FC7B29 /* Project object */;
+}
