@@ -1,100 +1,259 @@
-# Smart Shower Project
+# Smart Shower Mobile App
 
-## Wireless Sensor Networks
+Smart Shower is a college Wireless Sensor Networks project that ties together an iOS app, an AWS IoT message bridge, a Raspberry Pi shower controller, and a small habit-recognition module. The system is designed to let a user choose a target shower temperature from a phone, send that request through AWS IoT, adjust a physical shower valve with a servo and PID loop, and notify the app when the shower is ready.
 
+The repository is also now set up as a unit-tested school/practice repo. The testable code is the Python habit-recognition logic in `machineLearning/binning_kbins.py`; CI runs those unit tests on pushes and pull requests for both `main` and `dev`.
 
-## Links
+## Repository Layout
 
-- [AWSIoTPythonSDK](https://github.com/aws/aws-iot-device-sdk-python)
-- [Amazon Web Services](https://aws.amazon.com/)
+```text
+.
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/ci.yml
+├── docs/
+│   └── ui-preview.svg
+├── machineLearning/
+│   ├── binning_kbins.py
+│   ├── shower_ec2_pubsub.py
+│   ├── temperatures.txt
+│   ├── test_binning_kbinsdis.py
+│   └── time_data.txt
+├── showerController/
+│   ├── controller-demo1.py
+│   ├── controller-demo2.py
+│   ├── controller-demo3.py
+│   └── stop-shower.py
+├── smartShowerApp/
+│   ├── Podfile
+│   ├── Podfile.lock
+│   └── smartShowerApp/
+├── tests/
+│   └── test_binning_kbins.py
+├── pyproject.toml
+└── requirements-dev.txt
+```
 
-## Front-end iOS app
+## System Components
 
-The application is written to be able to run on any supported iOS phone in vertical or horizontal orientation. When launched the app connects to AWSIoT allowing the user to quickly interface with their shower. Upon closing the app, user actions are retained, such as if the shower was started and at what temperature are stored on the iOS device, so if launched again the app can give the user appropriate interface. The application does continue to run in the background, communicating with AWSIoT but is unable to send push notifications due to Apple's requirement of a developer account to further develop and test the feature. If a message was received there is still an on screen notification if the application is running in the foreground, giving the user information and actions to handle the notification.
+### iOS App
 
-### Built with
+The iOS app is in `smartShowerApp/`. It is a UIKit app built with Xcode, Swift, CocoaPods, and the AWS iOS SDK. Its main screen lets the user pick a desired temperature from a `UIPickerView` and press a start/stop button. The app publishes shower commands to AWS IoT and subscribes to status and notification topics.
 
-- [XCode 12](https://developer.apple.com/xcode/)
-- [Swift](https://developer.apple.com/swift/)
-- [CocaPods](https://cocoapods.org)
+The app persists the selected temperature and shower-on state with Core Data so it can restore the correct UI after relaunch. It also includes foreground alert flows for "Shower Ready" and "Shower Suggestion" messages.
 
-### Getting Started
+![Smart Shower iOS interface preview](docs/ui-preview.svg)
 
-Running the iOS application requires a Mac device with version 10.15 Catalina or 11 Big Sur (preferred).
+### AWS IoT / EC2 Message Bridge
 
-#### Prerequisites
+`machineLearning/shower_ec2_pubsub.py` is the EC2-side pub/sub bridge. It subscribes to the mobile app and controller topics, relays start/stop/temperature commands, forwards shower-ready status back to the app, and stores shower time/temperature history.
 
-- Download and install [Xcode 12](https://developer.apple.com/xcode/)
-- Install CocaPods
-  - CocoaPods is built with Ruby and is installable with the default Ruby available on macOS. It is recommend you use the default ruby.
-  - Using the default Ruby install can require you to use `sudo` when installing gems. Further installation instructions are in [the guides](https://guides.cocoapods.org/using/getting-started.html#getting-started).
+The script expects AWS IoT settings through environment variables:
 
-        $ sudo gem install cocoapods
+```bash
+export SMART_SHOWER_AWS_IOT_HOST="your-ats-endpoint.amazonaws.com"
+export SMART_SHOWER_AWS_ROOT_CA_PATH="/path/to/root-ca.pem"
+export SMART_SHOWER_AWS_CERTIFICATE_PATH="/path/to/device-certificate.pem.crt"
+export SMART_SHOWER_AWS_PRIVATE_KEY_PATH="/path/to/private.pem.key"
+```
 
-- In your project directory (the directory where your `*.xcodeproj` file is), run the following to create a Podfile in your project. `smartShower/smartShowerApp`
+### Habit Recognition
 
-        $ pod init
-        $ pod install --repo-update
+`machineLearning/binning_kbins.py` reads historical shower temperatures and start times from:
 
-### Running
+- `machineLearning/temperatures.txt`
+- `machineLearning/time_data.txt`
 
-To open your project, open the newly generated `*.xcworkspace` file in your project's directory with XCode. You can do this by issuing the following comman d in your project folder:
+It calculates the most common shower temperature with `statistics.mode`, bins shower start times with scikit-learn `KBinsDiscretizer`, and returns a suggested `(time, temperature)` tuple for the notification flow.
 
-    $ xed .
+The original production file was named `test_binning_kbinsdis.py`, which made pytest treat application code like a test module. That file now remains as a compatibility wrapper, while the real implementation lives in `machineLearning/binning_kbins.py`.
 
-**Note**: Do **NOT** use `*.xcodeproj`. If you open up a project file instead of a workspace, you may receive the following error:
+### Raspberry Pi Shower Controller
 
-    ld: library not found for -lPods-AWSCore
-    clang: error: linker command failed with exit code 1 (use -v to see invocation)
+`showerController/controller-demo3.py` is the latest controller demo. It connects to AWS IoT, listens for shower control messages, reads a DS18B20 temperature sensor, and uses a PID controller plus an Adafruit Servo HAT to move the shower valve toward the requested temperature. It publishes a ready status when the measured temperature is within roughly +/-0.5 degrees Fahrenheit of the target.
 
-Now you can build and run the project, also change the device if you'd like.
-### Acknowledgements
+## Prerequisites
 
+### Python
+
+- Python 3.12 recommended for local testing and CI parity
+- pip
+
+Install test dependencies:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+### iOS
+
+- macOS with Xcode
+- CocoaPods
+- An AWS IoT/Cognito configuration file such as the ignored `smartShowerApp/smartShowerApp/Constants.swift`
+
+Install CocoaPods if needed:
+
+```bash
+sudo gem install cocoapods
+```
+
+Install iOS dependencies:
+
+```bash
+cd smartShowerApp
+pod install --repo-update
+```
+
+### Controller Hardware
+
+- Raspberry Pi 3B+ or compatible Pi
+- Adafruit 16-channel Servo HAT
+- Waterproof DS18B20 temperature sensor
+- Servo motor suitable for the valve fixture
+- AWS IoT certificate/key files
+- Python packages used by the controller: `AWSIoTPythonSDK`, `adafruit_servokit`, and `simple_pid`
+
+## Build And Launch Commands
+
+### Run Unit Tests
+
+```bash
+python -m pytest
+```
+
+The pytest configuration in `pyproject.toml` runs tests from `tests/`, measures coverage for `machineLearning.binning_kbins`, and fails if line coverage drops below 90%.
+
+### Run Quality Checks
+
+```bash
+python -m ruff check machineLearning tests
+```
+
+### Launch The EC2 Pub/Sub Bridge
+
+Set the AWS environment variables listed above, then run:
+
+```bash
+python -m machineLearning.shower_ec2_pubsub
+```
+
+### Launch The Raspberry Pi Controller
+
+Run this on the Raspberry Pi with the sensor, servo, AWS credentials, and hardware libraries installed:
+
+```bash
+cd showerController
+python3 controller-demo3.py
+```
+
+### Build And Run The iOS App
+
+Open the workspace, not the `.xcodeproj`, because CocoaPods dependencies are wired through the workspace:
+
+```bash
+cd smartShowerApp
+xed smartShowerApp.xcworkspace
+```
+
+Then select an iOS simulator or device in Xcode and press Run.
+
+## Unit Tests
+
+Tests live in `tests/test_binning_kbins.py`. They cover:
+
+- parsing newline-delimited sensor/history files
+- handling missing data files
+- converting nested string values to floats
+- grouping shower times into K-means bins
+- choosing the most stable shower-time bin
+- returning no suggestion when data is insufficient or too noisy
+- calculating the `(suggested_time, suggested_temperature)` result
+
+Current local verification:
+
+```text
+python -m pytest
+11 passed
+Line coverage: 94.38%
+
+python -m ruff check machineLearning tests
+All checks passed
+```
+
+## GitHub Actions Pipeline
+
+The workflow is defined in `.github/workflows/ci.yml` and runs on:
+
+- pushes to `main`
+- pushes to `dev`
+- pull requests targeting `main`
+- pull requests targeting `dev`
+
+The workflow uses least-privilege top-level permissions, per-job permissions where needed, Python dependency caching, and concurrency cancellation so outdated runs do not pile up.
+
+### Unit Tests
+
+The `Unit Tests` job:
+
+- checks out the repository
+- sets up Python 3.12
+- installs `requirements-dev.txt`
+- runs `python -m pytest`
+- enforces the 90% coverage gate configured in `pyproject.toml`
+
+### Code Scanning: Quality
+
+The `Code Scanning / Quality` job:
+
+- sets up Python 3.12
+- installs Ruff
+- runs `ruff check machineLearning tests`
+
+Ruff provides fast static checks for Python quality issues such as unused imports, undefined names, and common style problems.
+
+### Code Scanning: Security
+
+The `Code Scanning / Security` job runs GitHub CodeQL for Python with the `security-and-quality` query suite. CodeQL results appear in GitHub's code scanning alerts when the repository type supports code scanning.
+
+GitHub's current documentation says CodeQL code scanning is available for public repositories on GitHub.com and for organization-owned repositories with GitHub Code Security enabled.
+
+### Code Scanning: Security / Dependency Review
+
+The `Code Scanning / Security / Dependency Review` job runs only on pull requests. It uses GitHub's dependency review action to detect vulnerable dependency changes before they merge.
+
+GitHub's current documentation says dependency review is available for public repositories and for organization-owned repositories with GitHub Code Security enabled.
+
+### Dependency Automation
+
+`.github/dependabot.yml` enables weekly Dependabot version checks for:
+
+- GitHub Actions used by workflow files
+- Python dependencies declared at the repository root
+
+GitHub's current documentation says Dependabot version updates are available for all repositories on GitHub.
+
+### Repository Settings Worth Enabling
+
+Some free GitHub security features are controlled in repository settings rather than workflow files:
+
+- Enable Dependabot alerts and Dependabot security updates.
+- Enable the dependency graph if it is not already enabled.
+- Enable secret scanning and push protection where available. GitHub currently runs secret scanning automatically for public repositories, while some private/internal repository options depend on plan and ownership.
+
+## Notable Code Improvements
+
+- Moved habit-recognition logic from a pytest-looking production filename into `machineLearning/binning_kbins.py`.
+- Kept `machineLearning/test_binning_kbinsdis.py` as a compatibility wrapper for older imports.
+- Added real unit tests and a 90% coverage gate.
+- Fixed K-means bin label handling so bin `0.0` values are not discarded.
+- Updated the EC2 bridge to read AWS IoT settings from environment variables and fail with a clear startup error when they are missing.
+- Converted temperature history writes to strings so numeric MQTT payloads do not crash file logging.
+
+## Original References
+
+- [AWS IoT Python SDK](https://github.com/aws/aws-iot-device-sdk-python)
 - [AWS SDK for iOS](https://github.com/aws-amplify/aws-sdk-ios)
-- [AWSIoT IOS Guide](https://medium.com/swlh/connect-an-ios-app-to-aws-iot-fc99d5a9562f)
-
-## Shower Controller
-
-The shower controller is a python script that comunicates with the rest of the Smart Shower system using AWS IoT topics. It also communicates with a servo using PWM and a temperature sensor using the 1-Wire protocol. Receipt of a control topic with an float value will start the shower and attempt to reach that temperature. Receipt of a control topic with "stop" will turn the shower off. The script will publish a ready topic when the shower has reached +/-0.5*F from the desired temperature.
-
-Within the `showerController/` folder there a four files. The `controller-demo<#>.py` scripts are the main controller scripts where the number refers to the demo the script was used for. There is also a `stop-shower.py` script with just sends the servo commands to turn off the shower.
-
-## Machine Learning
-
-The machine learning directory in this project contains the `shower_ec2_pubsub.py` script.  This script acts as the server for the smart shower system.  It runs on a AWS EC2 T2 Micro instance.  This script communicates to the mobile application and the shower controller.  It relays commands from the application to the shower and vice versa.
-
-Another script that works with the `shower_ec2_pubsub.py` is the `test_binning_kbinsdis.py` script.  This script performs data analysis of both the temperature and time data. The two txt files, `temperatures.txt` and `time.txt,` are written to at runtime.  That data is then saved and used to perform habit recognition on both the time the user takes a shower and how hot they prefer it.
-
-### Built with
-
-- [Python3](https://www.python.org)
-
-### Getting Started
-
-With a terminal window open in the `showerController/` folder in this repository, run the command `python3 controller-demo3.py` to start the latest shower controller script. The script will take a few seconds to initialize the topics and will then be ready to receive topics and interface with the servo and temperature sensor.
-
-With another terminal window open please connect to the AWS EC2 instance.  The machine learning directory exists on the server and mirrors what we have in our repo.  To run locally open a terminal and navigate the to `machineLearning/` folder.  Once inside this directory, run the command `python3 shower_ec2_pubsub.py` to start the server.  The script will start printing `Determining if notification should be sent.`  This means that it is waiting for the start command from the application and running habit recognition of past data to determine if a push notification should be sent to the application to take a shower.
-
-#### Prerequisites
-
-- A [Raspberry Pi 3B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) with an [Adafruit Servo Hat](https://www.adafruit.com/product/2327)
-- A DS18B20 digital temperature sensor (preferably with [waterproof enclosure](https://www.adafruit.com/product/381))
-- A servo (preferably [high torque and waterproof](https://www.amazon.com/ANNIMOS-Coreless-Stainless-Waterproof-Standard/dp/B07SWST8D6))
-- The following Python libraries:
-  - [AWSIoTPythonSDK](https://github.com/aws/aws-iot-device-sdk-python)
-
-        pip3 install AWSIoTPythonSDK
-
-  - [adafruit_servokit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
-
-        pip3 install adafruit_servokit
-
-  - [simple_pid](https://simple-pid.readthedocs.io/en/latest/)
-
-        pip3 install simple_pid
-
-### Acknowledgements
-
-- [Adafruit Servo HAT Guide](https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi)
-- [Adafruit DS18B20 Guide](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing)
-- The Python library documentation linked in the "Prerequisites" section
+- [AWS IoT iOS guide](https://medium.com/swlh/connect-an-ios-app-to-aws-iot-fc99d5a9562f)
+- [CocoaPods](https://cocoapods.org)
+- [Adafruit Servo HAT guide](https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi)
+- [Adafruit DS18B20 temperature sensing guide](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing)

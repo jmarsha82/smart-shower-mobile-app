@@ -5,14 +5,10 @@ Smart Shower
 
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 from datetime import datetime
-import threading
-import re
-import pandas as pd 
-import logging
 import time
 import json
 import os
-import test_binning_kbinsdis
+from machineLearning import binning_kbins
 
 
 # Create thread object for subscription service    
@@ -88,10 +84,16 @@ class CallbackContainer(object):
 
 # Setup AWS IoT
 # Connection settings
-# host = <INSERT_HOST>
-# rootCAPath = <INSERT_PATH>
-# certificatePath = <INSERT_PATH>
-# privateKeyPath = <INSERT_PATH>
+host = os.getenv("SMART_SHOWER_AWS_IOT_HOST")
+rootCAPath = os.getenv("SMART_SHOWER_AWS_ROOT_CA_PATH")
+certificatePath = os.getenv("SMART_SHOWER_AWS_CERTIFICATE_PATH")
+privateKeyPath = os.getenv("SMART_SHOWER_AWS_PRIVATE_KEY_PATH")
+if not all([host, rootCAPath, certificatePath, privateKeyPath]):
+    raise RuntimeError(
+        "Set SMART_SHOWER_AWS_IOT_HOST, SMART_SHOWER_AWS_ROOT_CA_PATH, "
+        "SMART_SHOWER_AWS_CERTIFICATE_PATH, and SMART_SHOWER_AWS_PRIVATE_KEY_PATH "
+        "before launching the EC2 pub/sub bridge."
+    )
 port = 8883
 clientId = "shower_test_ec2"
 controlTopic = "$aws/things/shower_start_cloud/shadow/update"
@@ -121,8 +123,8 @@ myAWSIoTMQTTClient.subscribe(controlTopic, 1, myCallbackContainer.customCallback
 # SUBSCRIBE Connect to AWS IoT topic of shower ready command
 myAWSIoTMQTTClient.subscribe(controlTopicStatus, 1, myCallbackContainer.customCallbackStatus)
 time.sleep(2)
-# Grab time and temp from test_binning_kbinsdis
-notification_tuple = test_binning_kbinsdis.doBinning()
+# Grab time and temp from the habit-recognition module.
+notification_tuple = binning_kbins.doBinning()
 
 while True:
     if(myCallbackContainer.getNotificationTrigger()):
@@ -163,7 +165,7 @@ while True:
         myAWSIoTMQTTClient.publish(controlTopicStatusPc, messageJson, 1)
         ## Log Requested Temperature sent from App only once to data set
         f = open('temperatures.txt','a')
-        f.write(myCallbackContainer.getTemperature() + '\n')
+        f.write(str(myCallbackContainer.getTemperature()) + '\n')
         f.close()
         ## Write time shower turned on only once to data set
         g = open('time_data.txt','a')
