@@ -5,4 +5,7 @@ The production implementation now lives in ``machineLearning.binning_kbins`` so
 pytest does not mistake application logic for a test module.
 """
 
-from machineLearning.binning_kbins import *  # noqa: F401,F403
+from machineLearning.binning_kbins import (
+    KBinsDiscretizer,
+    binning_kbins,
+)
