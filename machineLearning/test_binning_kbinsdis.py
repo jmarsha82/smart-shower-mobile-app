@@ -9,3 +9,5 @@ from machineLearning.binning_kbins import (
     KBinsDiscretizer,
     binning_kbins,
 )
+
+__all__ = ["KBinsDiscretizer", "binning_kbins"]
